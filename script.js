@@ -28,3 +28,29 @@ const CORES = {
   Recuperação: "text-bg-warning",
   Reprovado: "text-bg-danger",
 };
+
+function criarCelula(texto) {
+  const celula = document.createElement("td");
+  celula.textContent = texto;
+  return celula;
+}
+
+function criarSelo(situacao) {
+  const selo = document.createElement("span");
+  selo.className = `badge ${CORES[situacao]}`;
+  selo.textContent = situacao;
+  return selo;
+}
+
+function adicionarLinha(aluno) {
+  const celulaSituacao = criarCelula("");
+  celulaSituacao.append(criarSelo(aluno.situacao));
+
+  const linha = document.createElement("tr");
+  linha.append(
+    criarCelula(aluno.nome),
+    criarCelula(aluno.media.toFixed(1)),
+    celulaSituacao,
+  );
+  tabela.append(linha);
+}
