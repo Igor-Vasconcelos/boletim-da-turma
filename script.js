@@ -3,7 +3,7 @@ const nome = document.querySelector("#nome");
 const nota1 = document.querySelector("#nota1");
 const nota2 = document.querySelector("#nota2");
 const mensagem = document.querySelector("#mensagem");
-const tabelaAlunos = document.querySelector("#tabela-alunos");
+const tabela = document.querySelector("#tabela-alunos");
 const resumo = document.querySelector("#resumo");
 
 function lerNota(texto) {
