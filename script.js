@@ -15,4 +15,16 @@ function lerNota(texto) {
   return nota;
 }
 
+const calcularMedia = (n1, n2) => (n1 + n2) / 2;
 
+function definirSituacao(media) {
+  if (media >= 7) return "Aprovado";
+  if (media >= 5) return "Recuperação";
+  return "Reprovado";
+}
+
+const CORES = {
+  Aprovado: "text-bg-success",
+  Recuperação: "text-bg-warning",
+  Reprovado: "text-bg-danger",
+};
