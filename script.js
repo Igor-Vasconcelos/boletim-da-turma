@@ -54,3 +54,37 @@ function adicionarLinha(aluno) {
   );
   tabela.append(linha);
 }
+
+const turma = [];
+
+function atualizarResumo() {
+  let soma = 0;
+  let aprovados = 0;
+  for (const alunos of alunos) {
+    soma = soma + aluno.media;
+    if (aluno.situacao === "Aprovado") aprovados = aprovados + 1;
+  }
+  const mediaTurma = soma / turma.length;
+  resumo.textContent = `Média: ${mediaTurma.toFixed(1)} | Aprovados: ${aprovados}/${turma.length}`;
+}
+
+formAluno.addEventListener("submit", (evento) => {
+  evento.preventDefault();
+  const nomeAluno = nome.value.trim();
+  const n1 = lerNota(nota1.value);
+  const n2 = lerNota(nota2.value);
+
+  if (nomeAluno === "" || n1 === null || n2 === null) {
+    mensagem.textContent = "Preencha o nome e duas notas de 0 a 10.";
+    return;
+  }
+  mensagem.textContent = "";
+
+  const media = calcularMedia(n1, n2);
+  const situacao = definirSituacao(media);
+  const aluno = { nome: nomeAluno, media: media, situacao: situacao };
+  turma.push(aluno);
+  adicionarLinha(aluno);
+  atualizarResumo();
+  form.reset();
+});
