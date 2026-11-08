@@ -5,6 +5,7 @@ const nota2 = document.querySelector("#nota2");
 const mensagem = document.querySelector("#mensagem");
 const tabela = document.querySelector("#tabela-alunos");
 const resumo = document.querySelector("#resumo");
+const turma = [];
 
 function lerNota(texto) {
   if (texto.trim() === "") return null;
@@ -46,25 +47,45 @@ function adicionarLinha(aluno) {
   const celulaSituacao = criarCelula("");
   celulaSituacao.append(criarSelo(aluno.situacao));
 
+  const remover = criarElemento("button", "btn btn-sm btn-outline-danger", "X");
+
   const linha = document.createElement("tr");
   linha.append(
     criarCelula(aluno.nome),
     criarCelula(aluno.media.toFixed(1)),
     celulaSituacao,
+    remover,
   );
   tabela.append(linha);
+
+  remover.addEventListener("click", () => {
+    removerTarefa(linha);
+  });
 }
 
-const turma = [];
+function criarElemento(tag, classes, texto = "") {
+  const elemento = document.createElement(tag);
+  elemento.className = classes;
+  elemento.textContent = texto;
+  return elemento;
+}
+
+function removerTarefa(linha) {
+  linha.classList.add("saindo");
+  setTimeout(() => {
+    linha.remove();
+    atualizarContador();
+  }, 300);
+}
 
 function atualizarResumo() {
   let soma = 0;
   let aprovados = 0;
-  for (const alunos of alunos) {
+  for (const alunos of turma) {
     soma = soma + aluno.media;
     if (aluno.situacao === "Aprovado") aprovados = aprovados + 1;
   }
-  const mediaTurma = soma / turma.length;
+  const mediaTurma = turma.length > 0 ? (soma / turma.length).toFixed(1) : "—";
   resumo.textContent = `Média: ${mediaTurma.toFixed(1)} | Aprovados: ${aprovados}/${turma.length}`;
 }
 
